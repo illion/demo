@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+			<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+				<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+				<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+				<script type="text/javascript">
+					// Variables to keep track of the mouse position and left-button status 
+					var mouseX,mouseY,mouseDown=0;
+
+					// Variables to keep track of the touch position
+					var touchX,touchY;
+
+
+					// Draws a dot at a specific position on the supplied canvas name
+					// Parameters are: A canvas context, the x position, the y position, the size of the dot
+					function drawDot(ctx,w,h,x,y,size,cat1,cat2,cat3,cat4) {
+					// Let's use black by setting RGB values to 0, and 255 alpha (completely opaque)
+					r=0; g=0; b=0; a=255;
+
+					ctx.clearRect(0, 0, w, h);
+					drawRotatedText(ctx,180,20,0,cat1,'18px Helvetica');
+					drawRotatedText(ctx,20,180,-Math.PI/2,cat2,'18px Helvetica');
+					drawRotatedText(ctx,340,180,Math.PI/2,cat3,'18px Helvetica');
+					drawRotatedText(ctx,180,340,0,cat4,'18px Helvetica');
+					// Select a fill style
+					ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
+
+					// Draw a filled circle
+					ctx.beginPath();
+					var e = event;
+					ctx.arc(x, y, size, 0, Math.PI*2, true); 
+					ctx.closePath();
+					ctx.fill();
+					} 
+
+					// Get the current mouse position relative to the top-left of the canvas
+					function getMousePos(e) {
+					if (!e)
+					var e = event;
+
+					if (e.offsetX) {
+					mouseX = e.offsetX;
+					mouseY = e.offsetY;
+					}
+					else if (e.layerX) {
+					mouseX = e.layerX;
+					mouseY = e.layerY;
+					}
+					}
+
+					// Get the touch position relative to the top-left of the canvas
+					// When we get the raw values of pageX and pageY below, they take into account the scrolling on the page
+					// but not the position relative to our target div. We'll adjust them using "target.offsetLeft" and
+					// "target.offsetTop" to get the correct values in relation to the top left of the canvas.
+					function getTouchPos(e) {
+					if (!e)
+
+					if(e.touches) {
+						if (e.touches.length == 1) { // Only deal with one finger
+							var touch = e.touches[0];
+							touchX=touch.pageX-touch.target.offsetLeft;
+							touchY=touch.pageY-touch.target.offsetTop;
+						}
+					} // Get the information for finger #1
+					
+					}
+
+					// Keep track of the mouse button being released
+					function sketchpad_mouseUp() {
+					mouseDown=0;
+					}
+	
+function drawRotatedText(ctx,endingX,centerY,radianAngle,text,font){
+  // save the starting context state (untransformed)
+  ctx.save();
+  // set the desired font
+  ctx.font=font;
+  // measure the pixel width of the text
+  var width=ctx.measureText(text).width;
+  // translate to the desired endpoint
+  ctx.translate(endingX,centerY);
+  // rotate to the desired angle
+  ctx.rotate(radianAngle);
+  // set the text baseline so the text 
+  // is vertically centered on the endpoint 
+  ctx.textBaseline='middle';
+  // draw the text offset by the negative width
+  // so the text ends at the desired endpoint
+  ctx.fillText(text,-width/2,0);
+  // restore the context to its starting state
+  ctx.restore();
+}
+
+					// Set-up an individual sketchpad and add our event handlers
+					// Use the "this" reference to make sure variables and functions are specific to each 
+					// specific sketchpad created in the "init()" function below.
+					function sketchpad(my_sketchpad,cat1,cat2,cat3,cat4) {
+					// Get the specific canvas element from the HTML document passed
+					this.canvas = document.getElementById(my_sketchpad);
+					this.cat1 = cat1;
+					this.cat2 = cat2;
+					this.cat3 = cat3;
+					this.cat4 = cat4;
+					
+					// If the browser supports the canvas tag, get the 2d drawing context for this canvas,
+					// and also store it with the canvas as "ctx" for convenience
+					if (this.canvas.getContext)
+					this.ctx = this.canvas.getContext('2d');
+
+					drawRotatedText(this.ctx,180,20,0,this.cat1,'18px Helvetica');
+					drawRotatedText(this.ctx,20,180,-Math.PI/2,this.cat2,'18px Helvetica');
+					drawRotatedText(this.ctx,340,180,Math.PI/2,this.cat3,'18px Helvetica');
+					drawRotatedText(this.ctx,180,340,0,this.cat4,'18px Helvetica');
+					// Declare some functions associated with a particular sketchpad
+					// We will attach these to the canvas as event handlers later
+					// Note that the sketcphad_mouseUp function is not included here, since it's not 
+					// specific to a certain canvas - we're listening to the entire window for mouseup
+					// events.
+
+					// Clear the canvas context using the canvas width and height
+					this.clearCanvas = function() {
+					this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+					}
+
+					// Draw something when a touch start is detected
+					this.sketchpad_touchStart = function() {
+					// Update the touch co-ordinates
+					getTouchPos();
+					if(touchX > 30 && touchX < 330 && touchY > 30 && touchY < 330)
+					drawDot(this.ctx,this.canvas.width,this.canvas.height,touchX,touchY,12,this.cat1,this.cat2,this.cat3,this.cat4);
+
+					// Prevents an additional mousedown event being triggered
+					event.preventDefault();
+					}
+
+					// Keep track of the mouse button being pressed and draw a dot at current location
+					this.sketchpad_mouseDown = function(e) {
+					getMousePos(e);
+					if(mouseX > 30 && mouseX < 330 && mouseY > 30 && mouseY < 330)
+						drawDot(this.ctx,this.canvas.width,this.canvas.height,mouseX,mouseY,12,this.cat1,this.cat2,this.cat3,this.cat4);
+					}
+
+
+					// Add event handlers
+					// Check that we have a valid context to draw on/with before adding event handlers
+					if (this.ctx) {
+					// React to mouse events on the canvas, and mouseup on the entire document
+					this.canvas.addEventListener('mousedown', this.sketchpad_mouseDown.bind(this), false);
+					// React to touch events on the canvas
+					this.canvas.addEventListener('touchstart', this.sketchpad_touchStart.bind(this), false);
+					}
+
+					}
+
+					// Create two sketchpads when the page loads, using our canvas elements called sketchpad1 and sketchpad2
+					function init() {
+					sketch1 = new sketchpad('sketchpad1','Expensive','Familiar','Exotic','Cheap');
+					sketch2 = new sketchpad('sketchpad2','Romantic','Casual','Fine','Family');
+
+					// Since we are listening to the entire window for the mouseup, it only needs to be done once per page,
+					// and not once per canvas
+					//window.addEventListener('mouseup', sketchpad_mouseUp, false);
+					}
+					/**
+					this.resizeCanvas = function() {
+					this.canvas.width = window.innerWidth > 400 ? 400 : window.innerWidth;
+					this.canvas.height = window.innerHeight > 400 ? 400 : window.innerHeight;
+					}
+					// Add event handlers
+					// Check that we have a valid context to draw on/with before adding event handlers
+					if (this.ctx) {
+					// React to mouse events on the canvas, and mouseup on the entire document
+					this.canvas.addEventListener('mousedown', this.sketchpad_mouseDown.bind(this), false);
+
+					// React to touch events on the canvas
+					this.canvas.addEventListener('touchstart', this.sketchpad_touchStart.bind(this), false);
+					window.addEventListener('resize', this.resizeCanvas.bind(this), false);
+					window.addEventListener('orientationchange', this.resizeCanvas.bind(this), false);
+					this.resizeCanvas();
+					}
+
+					}**/
+
+				</script>
+
+				<style>
+					.sketchpad {
+					background-size: 300px 300px;
+					background-image: url("graph.jpg");
+					background-repeat: no-repeat;
+					background-position: center;
+					border-radius:4px;
+					position:relative; /* Necessary for correct mouse co-ords in Firefox */
+					}
+				</style>
+			</head>
+			<body onload="init()">
+
+				<div data-role="page" id="pageone">
+					<div data-role="header">
+						<h1>Describe an Experience</h1>
+					</div>
+					<div data-role="main" class="ui-content" style="text-align: center;">
+						<a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button" onclick="myFunction()">Describe an Experience</a>
+					</div>
+
+				</div> 
+
+				<div data-role="page" id="pagetwo">
+					<div data-role="header">
+						<h1>Describe an Experience</h1>
+					</div>
+					<div data-role="main" class="ui-content" style="text-align: center;">
+					<div><h2 class="title">First</h2></div>
+						<div class="ui-grid-solo">
+							<div class="ui-block-a"><canvas id="sketchpad1" class="sketchpad" height="360" width="360">
+								</canvas></div>
+						</div>
+						<a href="#pagethree" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Save the Experience</a>
+					</div>
+				</div>
+
+				<div data-role="page" id="pagethree">
+					<div data-role="header">
+						<h1>Describe an Experience</h1>
+					</div>
+					<div data-role="main" class="ui-content" style="text-align: center;">
+						<div><h2 class="title">Second</h2></div>
+						<div class="ui-grid-solo">
+							<div class="ui-block-a"><canvas id="sketchpad2" class="sketchpad" height="360" width="360"></canvas></div>
+								</div>
+						</div>
+
+						<a href="/demo.html"  target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save the Experience</a>
+					</div> 
+				</div> 
+
+			</body>
+		</html>
