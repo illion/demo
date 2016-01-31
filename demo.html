@@ -9,7 +9,8 @@
 				<script type="text/javascript">
 					// Variables to keep track of the mouse position and left-button status 
 					var mouseX,mouseY,mouseDown=0;
-
+					var imageObj = new Image();
+					imageObj.src = 'star.png';
 					// Variables to keep track of the touch position
 					var touchX,touchY;
 
@@ -18,23 +19,24 @@
 					// Parameters are: A canvas context, the x position, the y position, the size of the dot
 					function drawDot(ctx,w,h,x,y,size,cat1,cat2,cat3,cat4) {
 					// Let's use black by setting RGB values to 0, and 255 alpha (completely opaque)
-					r=0; g=0; b=0; a=255;
+					//r=0; g=0; b=0; a=255;
 
 					ctx.clearRect(0, 0, w, h);
 					drawRotatedText(ctx,180,20,0,cat1,'18px Helvetica');
 					drawRotatedText(ctx,20,180,-Math.PI/2,cat2,'18px Helvetica');
 					drawRotatedText(ctx,340,180,Math.PI/2,cat3,'18px Helvetica');
 					drawRotatedText(ctx,180,340,0,cat4,'18px Helvetica');
+					ctx.drawImage(imageObj, x-imageObj.width/2, y-imageObj.height/2);
 					// Select a fill style
-					ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
+					//ctx.fillStyle = "rgba("+r+","+g+","+b+","+(a/255)+")";
 
 					// Draw a filled circle
-					ctx.beginPath();
+					/**ctx.beginPath();
 					var e = event;
 					ctx.arc(x, y, size, 0, Math.PI*2, true); 
 					ctx.closePath();
-					ctx.fill();
-					} 
+					ctx.fill(); **/
+					}
 
 					// Get the current mouse position relative to the top-left of the canvas
 					function getMousePos(e) {
@@ -234,7 +236,7 @@ function drawRotatedText(ctx,endingX,centerY,radianAngle,text,font){
 								</div>
 						
 
-						<a href="demo.html"  target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save the Experience</a>
+						<a href="/demo.html"  target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save the Experience</a>
 						</div>
 					</div> 
 				</div> 
