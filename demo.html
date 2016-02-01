@@ -99,7 +99,8 @@
                   if (touchX > 30 && touchX < 330 && touchY > 30 && touchY < 330) {
                   var cat1r = touchX < 180 ? this.cat2 : this.cat3;
                   var cat2r = touchY < 180 ? this.cat1 : this.cat4;
-                      document.getElementById(this.name+"r").innerHTML = "You prefer to go to more "+cat1r.toLowerCase()+" and "+cat2r.toLowerCase()+" venues.";
+                  document.getElementById(this.name+"r").innerHTML = "touchX: "+touchX+", touchY: "+touchY;
+                      //document.getElementById(this.name+"r").innerHTML = "You prefer to go to more "+cat1r.toLowerCase()+" and "+cat2r.toLowerCase()+" venues.";
                     this.x = touchX;
                     this.y = touchY;
                       drawDot(this.ctx, this.canvas.width, this.canvas.height, touchX, touchY, this.cat1, this.cat2, this.cat3, this.cat4);
