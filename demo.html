@@ -4,7 +4,7 @@
         <title>Demo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
-        <link rel="stylesheet" href="ios7.min.css">
+        <link rel="stylesheet" href="ios7.min.css"/>
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript">
@@ -138,15 +138,18 @@
     <body onload="init()">
         <div data-role="page" id="pageone">
             <div data-role="header">
-                <h1>Describe the Experience</h1>
+                <h1>An Experience</h1>
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
-                <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Describe the Experience</a>
+                <div>
+                    <h2 class="title">Please use the following graphs to best describe the venue's experience</h2>
+                </div>
+                <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Start</a>
             </div>
         </div>
         <div data-role="page" id="pagetwo">
             <div data-role="header">
-                <h1>Describe the Experience</h1>
+                <h1>An Experience</h1>
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
                 <!--<div>
@@ -157,23 +160,23 @@
                         <canvas id="sketchpad1" class="sketchpad" height="360" width="360"></canvas>
                     </div>
                 </div>
-                <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Save the Experience</a>
+                <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Next</a>
             </div>
         </div>
         <div data-role="page" id="pagethree">
             <div data-role="header">
-                <h1>Describe the Experience</h1>
+                <h1>An Experience</h1>
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
                 <!--<div>
-                    <h2 class="title">Second</h2>
+                    <h2 class="title">"Please select the most appropriate dining experience you had at the venue you just visited</h2>
                 </div>-->
                 <div class="ui-grid-solo">
                     <div class="ui-block-a">
                         <canvas id="sketchpad2" class="sketchpad" height="360" width="360"></canvas>
                     </div>
                 </div>
-                <a href="demo.html" target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save the Experience</a>
+                <a href="demo.html" target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save</a>
             </div>
         </div>
     </body>
