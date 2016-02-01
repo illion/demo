@@ -151,10 +151,10 @@
         var ctx2 = $("#c2")[0].getContext('2d');
         ctx1.canvas.height = ctx2.canvas.height = ctx1.canvas.width = ctx2.canvas.width = viewportSize.width * 0.8;
         var dim = ctx1.canvas.width-60;
-        $("#c1")[0].css({ 
+        $("#c1").css({ 
      "background-size": dim+"px "+dim+"px"
 });
- $("#c2")[0].css({ 
+ $("#c2").css({ 
      "background-size": dim+"px "+dim+"px"
 });
     };
