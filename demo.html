@@ -73,12 +73,15 @@
 
           function sketchpad(my_sketchpad, cat1, cat2, cat3, cat4) {
               // Get the specific canvas element from the HTML document passed
+              this.name = my_sketchpad;
               this.canvas = document.getElementById(my_sketchpad);
               this.cat1 = cat1;
               this.cat2 = cat2;
               this.cat3 = cat3;
               this.cat4 = cat4;
-
+            this.x = 0;
+            this.y = 0;
+            
               if (this.canvas.getContext)
                   this.ctx = this.canvas.getContext('2d');
 
@@ -93,17 +96,23 @@
 
               this.sketchpad_touchStart = function () {
                   getTouchPos();
-                  if (touchX > 30 && touchX < 330 && touchY > 30 && touchY < 330)
+                  if (touchX > 30 && touchX < 330 && touchY > 30 && touchY < 330) {
+                    this.x = touchX;
+                    this.y = touchY;
                       drawDot(this.ctx, this.canvas.width, this.canvas.height, touchX, touchY, this.cat1, this.cat2, this.cat3, this.cat4);
-
+                  }
                   // Prevents an additional mousedown event being triggered
                   event.preventDefault();
               }
 
               this.sketchpad_mouseDown = function (e) {
                   getMousePos(e);
-                  if (mouseX > 30 && mouseX < 330 && mouseY > 30 && mouseY < 330)
+                  if (mouseX > 30 && mouseX < 330 && mouseY > 30 && mouseY < 330) {
+                      document.getElementById(this.name).innerHTML = this.cat1 + ": "+mouseX;?
+                  this.x = mouseX;
+                    this.y = mouseY;
                       drawDot(this.ctx, this.canvas.width, this.canvas.height, mouseX, mouseY, this.cat1, this.cat2, this.cat3, this.cat4);
+                  }
               }
 
               if (this.ctx) {
@@ -120,8 +129,8 @@
           }
 
           function init() {
-              sketch1 = new sketchpad('sketchpad1', 'EXPENSIVE', 'FAMILIAR', 'EXOTIC', 'CHEAP');
-              sketch2 = new sketchpad('sketchpad2', 'ROMANTIC', 'CASUAL', 'FINE', 'FAMILY');
+              sketch1 = new sketchpad('c1', 'EXPENSIVE', 'FAMILIAR', 'EXOTIC', 'CHEAP');
+              sketch2 = new sketchpad('c2', 'ROMANTIC', 'CASUAL', 'FINE', 'FAMILY');
           }
         </script>
         <style>
@@ -174,13 +183,32 @@
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
                 <!--<div>
-                    <h2 class="title">"Please select the most appropriate dining experience you had at the venue you just visited</h2>
+                    <h2 class="title">First</h2>
                 </div>-->
                 <div class="ui-grid-solo">
                     <div class="ui-block-a">
                         <canvas id="sketchpad2" class="sketchpad" height="360" width="360"></canvas>
                     </div>
                 </div>
+                <a href="#pagefour" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Next</a>
+            </div>
+        </div>
+        <div data-role="page" id="pagefour">
+            <div data-role="header">
+                <h1 style="overflow: visible;">Register an Experience</h1>
+            </div>
+            <div data-role="main" class="ui-content" style="text-align: center;">
+                <div>
+                    <h2 class="title">Result</h2>
+                </div>
+                <ul>
+                    <li>
+                        <p id="c1">You prefer to go to more expensive and exotic venues</p>
+                    </li>
+                    <li>
+                        <p id="c2">You prefer to go to more romantic and casual venues</p>
+                    </li>
+                </ul>
                 <a href="demo.html" target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save</a>
             </div>
         </div>
