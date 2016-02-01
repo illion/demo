@@ -107,13 +107,13 @@
               if (this.ctx) {
                   this.canvas.addEventListener('mousedown', this.sketchpad_mouseDown.bind(this), false);
                   this.canvas.addEventListener('touchstart', this.sketchpad_touchStart.bind(this), false);
-                  window.addEventListener('resize', this.resizeCanvas.bind(this), false);
+                  /**window.addEventListener('resize', this.resizeCanvas.bind(this), false);
                   window.addEventListener('orientationchange', this.resizeCanvas.bind(this), false);
-                  resizeCanvas();
+                  resizeCanvas();**/
               }
-              this.resizeCanvas = function () {
+              /**this.resizeCanvas = function () {
                   this.canvas.height = this.canvas.width = window.innerWidth > 360 ? 360 : window.innerWidth;
-              }
+              }**/
 
           }
 
