@@ -108,7 +108,7 @@
               this.sketchpad_mouseDown = function (e) {
                   getMousePos(e);
                   if (mouseX > 30 && mouseX < 330 && mouseY > 30 && mouseY < 330) {
-                      document.getElementById(this.name).innerHTML = this.cat1 + ": "+mouseX;
+                      document.getElementById(this.name+"r").innerHTML = this.cat1 + ": "+mouseX;
                   this.x = mouseX;
                     this.y = mouseY;
                       drawDot(this.ctx, this.canvas.width, this.canvas.height, mouseX, mouseY, this.cat1, this.cat2, this.cat3, this.cat4);
@@ -171,7 +171,7 @@
                 </div>-->
                 <div class="ui-grid-solo">
                     <div class="ui-block-a">
-                        <canvas id="sketchpad1" class="sketchpad" height="360" width="360"></canvas>
+                        <canvas id="c1" class="sketchpad" height="360" width="360"></canvas>
                     </div>
                 </div>
                 <a href="#pagethree" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Next</a>
@@ -187,7 +187,7 @@
                 </div>-->
                 <div class="ui-grid-solo">
                     <div class="ui-block-a">
-                        <canvas id="sketchpad2" class="sketchpad" height="360" width="360"></canvas>
+                        <canvas id="c2" class="sketchpad" height="360" width="360"></canvas>
                     </div>
                 </div>
                 <a href="#pagefour" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Next</a>
@@ -203,10 +203,10 @@
                 </div>
                 <ul>
                     <li>
-                        <p id="c1">You prefer to go to more expensive and exotic venues</p>
+                        <p id="c1r">You prefer to go to more expensive and exotic venues</p>
                     </li>
                     <li>
-                        <p id="c2">You prefer to go to more romantic and casual venues</p>
+                        <p id="c2r">You prefer to go to more romantic and casual venues</p>
                     </li>
                 </ul>
                 <a href="demo.html" target="_self" class="ui-btn ui-corner-all ui-shadow" data-role="button">Save</a>
