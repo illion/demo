@@ -14,10 +14,10 @@
 
           function drawDot(ctx, w, h, x, y, cat1, cat2, cat3, cat4) {
               ctx.clearRect(0, 0, w, h);
-              drawRotatedText(ctx, 180, 20, 0, cat1);
-              drawRotatedText(ctx, 20, 180,  - Math.PI / 2, cat2);
-              drawRotatedText(ctx, 340, 180, Math.PI / 2, cat3);
-              drawRotatedText(ctx, 180, 340, 0, cat4);
+              drawRotatedText(ctx, w/2, 20, 0, cat1);
+              drawRotatedText(ctx, 20, w/2,  - Math.PI / 2, cat2);
+              drawRotatedText(ctx, w-20, h/2, Math.PI / 2, cat3);
+              drawRotatedText(ctx, w/2, h-20, 0, cat4);
               ctx.drawImage(imageObj, x - (imageObj.width / 2), y - (imageObj.height / 2));
           }
 
@@ -85,10 +85,10 @@
               if (this.canvas.getContext)
                   this.ctx = this.canvas.getContext('2d');
 
-              drawRotatedText(this.ctx, 180, 20, 0, this.cat1);
-              drawRotatedText(this.ctx, 20, 180,  - Math.PI / 2, this.cat2);
-              drawRotatedText(this.ctx, 340, 180, Math.PI / 2, this.cat3);
-              drawRotatedText(this.ctx, 180, 340, 0, this.cat4);
+              drawRotatedText(this.ctx, w/2, 20, 0, this.cat1);
+              drawRotatedText(this.ctx, 20, w/2,  - Math.PI / 2, this.cat2);
+              drawRotatedText(this.ctx, w-20, h/2, Math.PI / 2, this.cat3);
+              drawRotatedText(this.ctx, w/2, h-20, 0, this.cat4);
 
               this.clearCanvas = function () {
                   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -96,9 +96,9 @@
 
               this.sketchpad_touchStart = function () {
                   getTouchPos();
-                  if (touchX > 30 && touchX < 330 && touchY > 30 && touchY < 330) {
-                      var cat1r = touchX < 180 ? this.cat2 : this.cat3;
-                      var cat2r = touchY < 180 ? this.cat1 : this.cat4;
+                  if (touchX > 30 && touchX < this.canvas.width - 30 && touchY > 30 && touchY < this.canvas.width - 30) {
+                      var cat1r = touchX < this.canvas.width / 2 ? this.cat2 : this.cat3;
+                      var cat2r = touchY < this.canvas.width / 2 ? this.cat1 : this.cat4;
                       //document.getElementById(this.name+"r").innerHTML = "touchX: "+touchX+", touchY: "+touchY;
                       document.getElementById(this.name + "r").innerHTML = "You prefer to go to more " + cat1r.toLowerCase() + " and " + cat2r.toLowerCase() + " venues.";
                       this.x = touchX;
@@ -111,17 +111,15 @@
 
               this.sketchpad_mouseDown = function (e) {
                   getMousePos(e);
-                  if (mouseX > 30 && mouseX < 330 && mouseY > 30 && mouseY < 330) {
-                      var cat1r = mouseX < 180 ? this.cat2 : this.cat3;
-                      var cat2r = mouseY < 180 ? this.cat1 : this.cat4;
+                  if (mouseX > 30 && mouseX < this.canvas.width - 30 && mouseY > 30 && mouseY < this.canvas.width - 30) {
+                      var cat1r = mouseX < this.canvas.width / 2 ? this.cat2 : this.cat3;
+                      var cat2r = mouseY < this.canvas.width / 2 ? this.cat1 : this.cat4;
                       document.getElementById(this.name + "r").innerHTML = "You prefer to go to more " + cat1r.toLowerCase() + " and " + cat2r.toLowerCase() + " venues.";
                       this.x = mouseX;
                       this.y = mouseY;
                       drawDot(this.ctx, this.canvas.width, this.canvas.height, mouseX, mouseY, this.cat1, this.cat2, this.cat3, this.cat4);
                   }
               }
-
-              
 
               if (this.ctx) {
                   this.canvas.addEventListener('mousedown', this.sketchpad_mouseDown.bind(this), false);
@@ -133,35 +131,32 @@
               sketch1 = new sketchpad('c1', 'EXPENSIVE', 'FAMILIAR', 'EXOTIC', 'CHEAP');
               sketch2 = new sketchpad('c2', 'ROMANTIC', 'CASUAL', 'FINE', 'FAMILY');
           }
-          
-          (function() {
+(function () {
 
-    // get viewport size
-    getViewportSize = function() {
-        return {
-            height: window.innerHeight,
-            width: window.innerWidth
-        };
-    };
+              // get viewport size
+              getViewportSize = function () {
+                  return {height : window.innerHeight, width : window.innerWidth};
+              };
 
-    // update canvas size
-    updateSizes = function() {
-        var viewportSize = getViewportSize();
-        var ctx1 = $("#c1")[0].getContext('2d');
-        var ctx2 = $("#c2")[0].getContext('2d');
-        ctx1.canvas.height = ctx2.canvas.height = ctx1.canvas.width = ctx2.canvas.width = viewportSize.width * 0.8;
-        var dim = ctx1.canvas.width-60;
-        $("#c1").css({ 
-     "background-size": dim+"px "+dim+"px"
-});
- $("#c2").css({ 
-     "background-size": dim+"px "+dim+"px"
-});
-    };
-    $(window).on('resize', function() {
-        updateSizes();
-    });
-}());
+              // update canvas size
+              updateSizes = function () {
+                  var viewportSize = getViewportSize();
+                  var ctx1 = $("#c1")[0].getContext('2d');
+                  var ctx2 = $("#c2")[0].getContext('2d');
+                  ctx1.canvas.height = ctx2.canvas.height = ctx1.canvas.width = ctx2.canvas.width = viewportSize.width * 0.9;
+                  var dim = ctx1.canvas.width - 60;
+                  $("#c1").css( {
+                      "background-size" : dim + "px " + dim + "px"
+                  });
+                  $("#c2").css( {
+                      "background-size" : dim + "px " + dim + "px"
+                  });
+              };
+              $(window).on('resize', function () {
+                  updateSizes();
+              });
+          }
+());
         </script>
         <style>
             .sketchpad {
