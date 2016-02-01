@@ -8,7 +8,7 @@
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <script type="text/javascript">
-          var mouseX, mouseY, touchX, touchY;
+          var mouseX, mouseY, touchX, touchY, sketch1, sketch2;
           var imageObj = new Image();
           imageObj.src = 'star.png';
 
@@ -121,22 +121,25 @@
                   }
               }
 
-              this.resizeCanvas = function () {
-                  this.canvas.height = this.canvas.width = window.innerWidth > 360 ? 360 : window.innerWidth;
-              }
+              
 
               if (this.ctx) {
                   this.canvas.addEventListener('mousedown', this.sketchpad_mouseDown.bind(this), false);
                   this.canvas.addEventListener('touchstart', this.sketchpad_touchStart.bind(this), false);
-                  window.addEventListener('resize', this.resizeCanvas.bind(this), false);
-                  window.addEventListener('orientationchange', this.resizeCanvas.bind(this), false);
-                  this.resizeCanvas();
               }
           }
-
+function resizeCanvas() {
+var canvas = document.getElementById('c1');
+                  canvas.height = canvas.width = window.innerWidth > 360 ? 360 : window.innerWidth;
+                  canvas = document.getElementById('c2');
+                  canvas.height = canvas.width = window.innerWidth > 360 ? 360 : window.innerWidth;
+              }
           function init() {
               sketch1 = new sketchpad('c1', 'EXPENSIVE', 'FAMILIAR', 'EXOTIC', 'CHEAP');
               sketch2 = new sketchpad('c2', 'ROMANTIC', 'CASUAL', 'FINE', 'FAMILY');
+              window.addEventListener('resize', resizeCanvas, false);
+                  window.addEventListener('orientationchange', resizeCanvas, false);
+                  resizeCanvas();
           }
         </script>
         <style>
