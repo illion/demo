@@ -14,10 +14,10 @@
 
           function drawDot(ctx, w, h, x, y, cat1, cat2, cat3, cat4) {
               ctx.clearRect(0, 0, w, h);
-              drawRotatedText(ctx, 180, 20, 0, cat1, '18px Helvetica Neue');
-              drawRotatedText(ctx, 20, 180,  - Math.PI / 2, cat2, '18px Helvetica Neue');
-              drawRotatedText(ctx, 340, 180, Math.PI / 2, cat3, '18px Helvetica Neue');
-              drawRotatedText(ctx, 180, 340, 0, cat4, '18px Helvetica Neue');
+              drawRotatedText(ctx, 180, 20, 0, cat1);
+              drawRotatedText(ctx, 20, 180,  - Math.PI / 2, cat2);
+              drawRotatedText(ctx, 340, 180, Math.PI / 2, cat3);
+              drawRotatedText(ctx, 180, 340, 0, cat4);
               ctx.drawImage(imageObj, x - (imageObj.width / 2), y - (imageObj.height / 2));
           }
 
@@ -49,7 +49,7 @@
               }
           }
 
-          function drawRotatedText(ctx, endingX, centerY, radianAngle, text, font) {
+          function drawRotatedText(ctx, endingX, centerY, radianAngle, text) {
               // save the starting context state (untransformed)
               ctx.save();
               // set the desired font
@@ -82,10 +82,10 @@
               if (this.canvas.getContext)
                   this.ctx = this.canvas.getContext('2d');
 
-              drawRotatedText(this.ctx, 180, 20, 0, this.cat1, '18px Helvetica Neue');
-              drawRotatedText(this.ctx, 20, 180,  - Math.PI / 2, this.cat2, '18px Helvetica Neue');
-              drawRotatedText(this.ctx, 340, 180, Math.PI / 2, this.cat3, '18px Helvetica Neue');
-              drawRotatedText(this.ctx, 180, 340, 0, this.cat4, '18px Helvetica Neue');
+              drawRotatedText(this.ctx, 180, 20, 0, this.cat1);
+              drawRotatedText(this.ctx, 20, 180,  - Math.PI / 2, this.cat2);
+              drawRotatedText(this.ctx, 340, 180, Math.PI / 2, this.cat3);
+              drawRotatedText(this.ctx, 180, 340, 0, this.cat4);
 
               this.clearCanvas = function () {
                   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -121,7 +121,7 @@
 
           function init() {
               sketch1 = new sketchpad('sketchpad1', 'EXPENSIVE', 'FAMILIAR', 'EXOTIC', 'CHEAP');
-              sketch2 = new sketchpad('sketchpad2', 'Romantic', 'Casual', 'Fine', 'Family');
+              sketch2 = new sketchpad('sketchpad2', 'ROMANTIC', 'CASUAL', 'FINE', 'FAMILY');
           }
         </script>
         <style>
@@ -138,20 +138,20 @@
     <body onload="init()">
         <div data-role="page" id="pageone">
             <div data-role="header">
-                <h1>Describe an Experience</h1>
+                <h1>Describe the Experience</h1>
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
-                <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Describe an Experience</a>
+                <a href="#pagetwo" class="ui-btn ui-corner-all ui-shadow" data-transition="slide" data-role="button">Describe the Experience</a>
             </div>
         </div>
         <div data-role="page" id="pagetwo">
             <div data-role="header">
-                <h1>Describe an Experience</h1>
+                <h1>Describe the Experience</h1>
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
-                <div>
+                <!--<div>
                     <h2 class="title">First</h2>
-                </div>
+                </div>-->
                 <div class="ui-grid-solo">
                     <div class="ui-block-a">
                         <canvas id="sketchpad1" class="sketchpad" height="360" width="360"></canvas>
@@ -162,12 +162,12 @@
         </div>
         <div data-role="page" id="pagethree">
             <div data-role="header">
-                <h1>Describe an Experience</h1>
+                <h1>Describe the Experience</h1>
             </div>
             <div data-role="main" class="ui-content" style="text-align: center;">
-                <div>
+                <!--<div>
                     <h2 class="title">Second</h2>
-                </div>
+                </div>-->
                 <div class="ui-grid-solo">
                     <div class="ui-block-a">
                         <canvas id="sketchpad2" class="sketchpad" height="360" width="360"></canvas>
