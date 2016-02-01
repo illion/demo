@@ -108,7 +108,9 @@
               this.sketchpad_mouseDown = function (e) {
                   getMousePos(e);
                   if (mouseX > 30 && mouseX < 330 && mouseY > 30 && mouseY < 330) {
-                      document.getElementById(this.name+"r").innerHTML = this.cat1 + ": "+mouseX;
+                  var cat1r = mouseX < 180 ? this.cat2 : this.cat3;
+                  var cat2r = mouseY < 180 ? this.cat1 : this.cat4;
+                      document.getElementById(this.name+"r").innerHTML = "You prefer to go to more "+cat1r.toLowerCase()+" and "+cat2r.toLowerCase()+" venues.";
                   this.x = mouseX;
                     this.y = mouseY;
                       drawDot(this.ctx, this.canvas.width, this.canvas.height, mouseX, mouseY, this.cat1, this.cat2, this.cat3, this.cat4);
