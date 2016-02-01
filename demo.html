@@ -147,8 +147,8 @@
     // update canvas size
     updateSizes = function() {
         var viewportSize = getViewportSize();
-        var ctx1 = $("c1")[0].getContext('2d');
-        var ctx2 = $("c2")[0].getContext('2d');
+        var ctx1 = $("#c1")[0].getContext('2d');
+        var ctx2 = $("#c2")[0].getContext('2d');
         ctx1.canvas.height = ctx2.canvas.height = ctx1.canvas.width = ctx2.canvas.width = viewportSize.width * 0.8;
     };
     $(window).on('resize', function() {
