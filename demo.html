@@ -128,20 +128,33 @@
                   this.canvas.addEventListener('touchstart', this.sketchpad_touchStart.bind(this), false);
               }
           }
-function resizeCanvas() {
-var canvas = document.getElementById('c1');
-                  canvas.height = canvas.width = window.innerWidth > 360 ? 360 : window.innerWidth;
-                  canvas = document.getElementById('c2');
-                  canvas.height = canvas.width = window.innerWidth > 360 ? 360 : window.innerWidth;
-                  alert(canvas.width);
-              }
+
           function init() {
               sketch1 = new sketchpad('c1', 'EXPENSIVE', 'FAMILIAR', 'EXOTIC', 'CHEAP');
               sketch2 = new sketchpad('c2', 'ROMANTIC', 'CASUAL', 'FINE', 'FAMILY');
-              window.addEventListener('resize', resizeCanvas, false);
-                  window.addEventListener('orientationchange', resizeCanvas, false);
-                  resizeCanvas();
           }
+          
+          (function() {
+
+    // get viewport size
+    getViewportSize = function() {
+        return {
+            height: window.innerHeight,
+            width: window.innerWidth
+        };
+    };
+
+    // update canvas size
+    updateSizes = function() {
+        var viewportSize = getViewportSize();
+        var ctx1 = $("c1")[0].getContext('2d');
+        var ctx2 = $("c2")[0].getContext('2d');
+        ctx1.canvas.height = ctx2.canvas.height = ctx1.canvas.width = ctx2.canvas.width = viewportSize.width * 0.8;
+    };
+    $(window).on('resize', function() {
+        updateSizes();
+    });
+}());
         </script>
         <style>
             .sketchpad {
