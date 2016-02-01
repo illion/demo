@@ -14,10 +14,10 @@
 
           function drawDot(ctx, w, h, x, y, cat1, cat2, cat3, cat4) {
               ctx.clearRect(0, 0, w, h);
-              drawRotatedText(ctx, 180, 20, 0, cat1, '18px Helvetica');
-              drawRotatedText(ctx, 20, 180,  - Math.PI / 2, cat2, '18px Helvetica');
-              drawRotatedText(ctx, 340, 180, Math.PI / 2, cat3, '18px Helvetica');
-              drawRotatedText(ctx, 180, 340, 0, cat4, '18px Helvetica');
+              drawRotatedText(ctx, 180, 20, 0, cat1, '18px Helvetica Neue');
+              drawRotatedText(ctx, 20, 180,  - Math.PI / 2, cat2, '18px Helvetica Neue');
+              drawRotatedText(ctx, 340, 180, Math.PI / 2, cat3, '18px Helvetica Neue');
+              drawRotatedText(ctx, 180, 340, 0, cat4, '18px Helvetica Neue');
               ctx.drawImage(imageObj, x - (imageObj.width / 2), y - (imageObj.height / 2));
           }
 
@@ -81,10 +81,10 @@
               if (this.canvas.getContext)
                   this.ctx = this.canvas.getContext('2d');
 
-              drawRotatedText(this.ctx, 180, 20, 0, this.cat1, '18px Helvetica');
-              drawRotatedText(this.ctx, 20, 180,  - Math.PI / 2, this.cat2, '18px Helvetica');
-              drawRotatedText(this.ctx, 340, 180, Math.PI / 2, this.cat3, '18px Helvetica');
-              drawRotatedText(this.ctx, 180, 340, 0, this.cat4, '18px Helvetica');
+              drawRotatedText(this.ctx, 180, 20, 0, this.cat1, '18px Helvetica Neue');
+              drawRotatedText(this.ctx, 20, 180,  - Math.PI / 2, this.cat2, '18px Helvetica Neue');
+              drawRotatedText(this.ctx, 340, 180, Math.PI / 2, this.cat3, '18px Helvetica Neue');
+              drawRotatedText(this.ctx, 180, 340, 0, this.cat4, '18px Helvetica Neue');
 
               this.clearCanvas = function () {
                   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
